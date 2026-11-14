@@ -21,6 +21,7 @@
 - `adventure/game.js`：遊戲邏輯與存檔
 - `assets/`：場景圖片
 - `ART_TODO.md`：待生成的美術素材清單
+- `docs/LESSONS.md`：這個專案的經驗整理，以及下一個作品（生成式 AI 互動劇情）的規劃
 
 ## GitHub Pages
 
