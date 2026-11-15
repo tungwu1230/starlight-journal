@@ -19,10 +19,13 @@
 - `adventure/index.html`、`adventure/game.css`：遊戲介面（獨立樣式，不使用根目錄的 `style.css`）
 - `adventure/story.js`：角色、道具、逐句台詞、選項、解鎖條件、謎題和結局（欄位說明見檔案開頭註解）
 - `adventure/game.js`：遊戲邏輯與存檔
-- `assets/`：場景圖片
-- `ART_TODO.md`：待生成的美術素材清單
+- `adventure/assets/`：遊戲素材（場景背景、道具圖示、介面）
+- `assets/`：網站共用素材（`starlight.png`，首頁與遊戲預設背景）
+- `docs/ART_TODO.md`：待生成的美術素材清單
 - `docs/LESSONS.md`：這個專案的經驗整理，以及下一個作品（生成式 AI 互動劇情）的規劃
 
 ## GitHub Pages
 
 確認內容後，將檔案推送到公開 GitHub 儲存庫。在儲存庫 Settings → Pages，選擇從主要分支的根目錄發布。發布後 GitHub 會提供網站網址。
+
+目前網址：https://tungwu1230.github.io/starlight-journal/

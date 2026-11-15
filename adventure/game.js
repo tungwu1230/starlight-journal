@@ -8,7 +8,7 @@ const CARD_TIME = 1700; // 章節標題卡顯示的毫秒數
 const FALLBACK_BG = '../assets/starlight.png';
 const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = id => document.getElementById(id);
-const asset = path => `../assets/${path}.webp`;
+const asset = path => `assets/${path}.webp`;
 
 // ---- 狀態與存檔 ----
 function newState() {

@@ -1,7 +1,7 @@
 // 故事內容集中在這裡，方便修改。
 //
 // 段落欄位
-//   bg        背景圖，對應 assets/<bg>.webp；圖片不存在時使用 assets/starlight.png
+//   bg        背景圖，對應 adventure/assets/<bg>.webp；圖片不存在時使用根目錄的 assets/starlight.png
 //   lines     逐句演出的台詞。字串是旁白；物件 { who, face, text } 是角色對白
 //             who 為說話者名稱（需在 CHARACTERS 中才會顯示立繪），face 為表情
 //             sprite 可指定立繪（例如 'deer-hurt'），sprite:null 收起立繪
@@ -10,7 +10,7 @@
 //   puzzle    謎題。lines 播完後出現；解開前顯示 giveUp 選項，解開後播放 solvedLines 再顯示 choices
 //   ending    結局段落
 
-// 角色：id 對應 assets/char/<id>-<face>.webp
+// 角色：id 對應 adventure/assets/char/<id>-<face>.webp
 const CHARACTERS = {
   '小葵': { id: 'aoi', face: 'normal' },
   '弟弟': { id: 'brother', face: 'scared' },
@@ -19,7 +19,7 @@ const CHARACTERS = {
   '國王': { id: 'king', face: 'memory' }
 };
 
-// 道具：圖示對應 assets/items/<icon>.webp
+// 道具：圖示對應 adventure/assets/items/<icon>.webp
 const ITEMS = {
   '銀色羅盤': 'compass',
   '銀色碎片': 'shard',
@@ -144,7 +144,7 @@ const STORY = {
       id: 'mural', type: 'order',
       prompt: '點選兩塊石板交換位置，把壁畫的故事排回正確順序。',
       hintItem: '銀色碎片', hintLabel: '讓銀色碎片與壁畫共鳴', hintText: '碎片微微發燙，第一塊石板亮了起來。',
-      // image 對應 assets/<image>.webp
+      // image 對應 adventure/assets/<image>.webp
       pieces: [
         { id: 'wish', image: 'mural/wish', text: '眾人在星空下各自許願，星光從每一扇窗升起' },
         { id: 'fear', image: 'mural/fear', text: '黑暗從邊境蔓延，國王在城牆上徹夜不眠' },
