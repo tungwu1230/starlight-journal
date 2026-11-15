@@ -8,7 +8,7 @@
 //   choices   選項：next 下一段、item 取得道具、trust 增加信任
 //             requires: { items:[全部需要], anyItem:[任一即可], trust:最低信任 }，lockHint 為未解鎖時的提示
 //   puzzle    謎題。lines 播完後出現；解開前顯示 giveUp 選項，解開後播放 solvedLines 再顯示 choices
-//   ending    結局段落
+//   ending    結局段落；hint 為尚未發現時在結局卡上顯示的提示
 
 // 角色：id 對應 adventure/assets/char/<id>-<face>.webp
 const CHARACTERS = {
@@ -62,8 +62,8 @@ const STORY = {
   village: {
     location: '微燈村', chapter: 'CHAPTER 01 / 微燈', title: '守燈人的請求', bg: 'bg/village',
     lines: [
-      '村子的窗邊都掛著空燈籠。',
-      '年輕的守燈人正試著點亮最後一盞燈，火苗卻一次次熄滅。',
+      '村裡的燈籠還亮著，火光卻一盞比一盞黯淡，像是隨時會熄滅。',
+      '年輕的守燈人正試著替一盞剛熄掉的燈重新點火，火苗卻一次次熄滅。',
       { who: '小葵', face: 'normal', text: '……又熄了。啊，你是旅人嗎？我叫小葵，是這裡的守燈人。' },
       { who: '小葵', face: 'normal', text: '以前星光會替迷路的人照路。現在，連燈火都留不住了。' },
       { who: '小葵', face: 'worried', text: '森林裡的守林人知道更多。可是我弟弟去溪邊還沒回來，我不能離開。' },
@@ -180,6 +180,7 @@ const STORY = {
 
   ending_return: {
     location: '星光重臨', chapter: 'ENDING 01 / 歸還', title: '每個人的星星', bg: 'cg/ending-return', ending: true,
+    hint: '也許可以讓星光回到它原本的主人身邊',
     lines: [
       '王冠在你掌中化為無數光點。它們飛越森林與屋頂，回到每個人的窗前。',
       '有人許願，有人想念，也有人只是靜靜抬頭。',
@@ -190,6 +191,7 @@ const STORY = {
 
   ending_crown: {
     location: '星之殿', chapter: 'ENDING 02 / 守望', title: '長夜中的守望者', bg: 'cg/ending-crown', ending: true,
+    hint: '也許可以留下王冠，由你來守護這份光',
     lines: [
       '你重新穩固封印，王冠的光化為一道溫暖的光環，照亮了沉睡的王國。',
       '村莊不再害怕黑暗，旅人也能看清歸途。',
@@ -200,6 +202,7 @@ const STORY = {
 
   ending_share: {
     location: '群星之下', chapter: 'TRUE ENDING / 共光', title: '我們共同的天空', bg: 'cg/ending-share', ending: true,
+    hint: '幫助遇見的人、讀懂壁畫的封印，或許會出現第三條路',
     lines: [
       '你將羅盤貼近胸口，把自己的一點光交給夜空。',
       '王冠沒有破碎，而是化作一座橋，連接每個人的願望。',

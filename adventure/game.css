@@ -211,13 +211,40 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round
   transform: translateY(-3px);
   box-shadow: 0 0 0 1px var(--gold) inset;
 }
-.tablet.fixed { cursor: default; border-color: #8a7650; background: #252417; }
+.tablet.fixed { cursor: default; border-style: dashed; border-color: #8a7650; background: #1d2232; opacity: .8; }
 .tablet-no { color: var(--gold-soft); font: 11px sans-serif; letter-spacing: .2em; }
 .tablet-img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border: 1px solid #3e4659; }
 /* 有壁畫圖時，文字縮小成圖說 */
 .tablet-img:not([hidden]) + .tablet-text { font-size: 11px; line-height: 1.5; color: #aeb5c2; }
 .hint-button { margin-top: 8px; }
 .puzzle-hint { margin: 10px 0 0; font-size: 12px; color: #c3b48f; }
+/* 謎題完成：石板依序亮起 */
+.puzzle.solved { border-color: var(--gold); }
+.puzzle.solved .tablet { cursor: default; border-color: #b9a274; animation: tablet-glow .9s ease both; }
+.puzzle.solved .tablet:nth-child(2) { animation-delay: .12s; }
+.puzzle.solved .tablet:nth-child(3) { animation-delay: .24s; }
+.puzzle.solved .tablet:nth-child(4) { animation-delay: .36s; }
+@keyframes tablet-glow { 50% { background: #3a3424; box-shadow: 0 0 18px rgba(232, 204, 146, .45); } }
+
+/* ---- 結局達成卡 ---- */
+.ending-summary {
+  padding: 16px;
+  text-align: center;
+  background: rgba(17, 22, 36, .95);
+  border: 1px solid #8a7650;
+  border-radius: 4px;
+}
+.ending-label { font: 10px sans-serif; letter-spacing: .25em; color: var(--gold-soft); }
+.ending-title { display: block; margin: 4px 0 2px; font-size: 18px; font-weight: 600; letter-spacing: .1em; color: var(--gold); }
+.ending-count { margin: 0 0 10px; font-size: 12px; color: var(--muted); }
+.ending-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; text-align: left; }
+.ending-list li { display: grid; grid-template-columns: 6.6rem 1fr; gap: 8px; align-items: baseline; padding: 7px 10px; border: 1px solid #333d50; border-radius: 3px; font-size: 13px; }
+.ending-list span { font: 10px sans-serif; letter-spacing: .15em; color: var(--gold-soft); }
+.ending-list em { font-style: normal; color: #d9dce2; }
+.ending-list li.unknown { border-style: dashed; }
+.ending-list li.unknown span { color: #5f6a7e; }
+.ending-list li.unknown em { font-size: 12px; color: #8792a4; }
+.ending-list li.current { border-color: var(--gold); background: rgba(232, 204, 146, .08); }
 
 /* ---- 對話框 ---- */
 .dialogue-wrap {

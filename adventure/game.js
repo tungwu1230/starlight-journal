@@ -1,10 +1,12 @@
 const SAVE_KEY = 'starlight-adventure-v3';
+const ENDINGS_KEY = 'starlight-endings-v1'; // 已發現的結局，重新開始也會保留
 const MAX_TRUST = 2;
 const MAX_LOG = 300;
 const TYPE_SPEED = 32; // 每個字的毫秒數
 const AUTO_DELAY = 1200; // 自動播放：每句停留的基本毫秒數
 const AUTO_PER_CHAR = 45; // 自動播放：每個字額外停留的毫秒數
 const CARD_TIME = 1700; // 章節標題卡顯示的毫秒數
+const SOLVED_PAUSE = 1200; // 謎題完成後停留的毫秒數，讓玩家看到拼好的壁畫
 const FALLBACK_BG = '../assets/starlight.png';
 const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = id => document.getElementById(id);
@@ -34,12 +36,29 @@ function save() {
   try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (e) {}
 }
 
+function seenEndings() {
+  try {
+    const list = JSON.parse(localStorage.getItem(ENDINGS_KEY));
+    if (Array.isArray(list)) return list.filter(id => STORY[id] && STORY[id].ending);
+  } catch (e) {}
+  return [];
+}
+
+function recordEnding(id) {
+  const list = seenEndings();
+  if (list.includes(id)) return;
+  list.push(id);
+  try { localStorage.setItem(ENDINGS_KEY, JSON.stringify(list)); } catch (e) {}
+}
+
 let state;
 let typing = null; // { timer, text }
 let selectedPiece = null;
 let auto = false;
 let autoTimer = null;
 let card = null; // { timer, then }
+let busy = false; // 謎題完成的停頓中，暫停推進
+let pendingToast = null; // 標題卡結束後才顯示的道具提示
 
 // ---- 台詞 ----
 function asLine(raw) {
@@ -211,6 +230,7 @@ function toast(text) {
 
 // ---- 推進 ----
 function advance() {
+  if (busy) return;
   clearAuto();
   if (card) { hideCard(true); return; }
   if (typing) { stopTyping(); renderControls(); return; }
@@ -222,6 +242,7 @@ function advance() {
 }
 
 function skip() {
+  if (busy) return;
   clearAuto();
   if (card) hideCard(true);
   stopTyping();
@@ -269,10 +290,18 @@ function choiceButton(choice, index) {
 function choose(choice) {
   if (choice.restart) { reset(); return; }
   state.log.push({ choice: choice.label });
+  if (choice.back) { // 從結局回到最後的抉擇，不重播台詞
+    state.node = choice.back;
+    state.line = currentLines().length - 1;
+    save();
+    render(false);
+    return;
+  }
   if (choice.item && !state.items.includes(choice.item)) {
     state.items.push(choice.item);
-    toast(`◇ 獲得道具：${choice.item}`);
+    pendingToast = `◇ 獲得道具：${choice.item}`;
   }
+  if (STORY[choice.next].ending) state.beforeEnding = state.node;
   state.trust = Math.min(MAX_TRUST, state.trust + (choice.trust || 0));
   state.node = choice.next;
   state.line = 0;
@@ -300,8 +329,15 @@ function checkSolved(p, ps) {
 function afterPuzzleChange(p, ps) {
   const solved = checkSolved(p, ps);
   save();
-  if (solved) { renderLine(true); $('dialogue').focus({ preventScroll: true }); }
-  else renderControls();
+  if (!solved) { renderControls(); return; }
+  // 先停在拼好的壁畫上，再接著播放 solvedLines
+  $('choices').replaceChildren(renderPuzzle(p, true));
+  busy = true;
+  setTimeout(() => {
+    busy = false;
+    renderLine(true);
+    $('dialogue').focus({ preventScroll: true });
+  }, REDUCED_MOTION ? 0 : SOLVED_PAUSE);
 }
 
 function swapPiece(p, ps, index) {
@@ -323,10 +359,10 @@ function useHint(p, ps) {
   afterPuzzleChange(p, ps);
 }
 
-function renderPuzzle(p) {
+function renderPuzzle(p, done = false) {
   const ps = puzzleState(p);
-  const box = el('div', 'puzzle');
-  box.append(el('p', 'puzzle-prompt', p.prompt));
+  const box = el('div', 'puzzle' + (done ? ' solved' : ''));
+  box.append(el('p', 'puzzle-prompt', done ? '✦ 壁畫的故事連起來了。' : p.prompt));
   const grid = el('div', 'mural');
   ps.order.forEach((id, i) => {
     const piece = p.pieces.find(x => x.id === id);
@@ -335,14 +371,15 @@ function renderPuzzle(p) {
     b.setAttribute('aria-pressed', String(selectedPiece === i));
     if (fixed) { b.classList.add('fixed'); b.setAttribute('aria-disabled', 'true'); }
     b.setAttribute('aria-label', `第 ${i + 1} 塊石板：${piece.text}${fixed ? '（已固定）' : ''}`);
-    b.append(el('span', 'tablet-no', ['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ'][i] || i + 1));
+    b.append(el('span', 'tablet-no', (['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ'][i] || i + 1) + (fixed && !done ? '　✦ 已固定' : '')));
     if (piece.image) b.append(optionalImage(piece.image, 'tablet-img'));
     b.append(el('span', 'tablet-text', piece.text));
-    b.onclick = () => swapPiece(p, ps, i);
+    if (done) b.disabled = true;
+    else b.onclick = () => swapPiece(p, ps, i);
     grid.append(b);
   });
   box.append(grid);
-  if (p.hintItem && state.items.includes(p.hintItem)) {
+  if (!done && p.hintItem && state.items.includes(p.hintItem)) {
     if (ps.hinted) box.append(el('p', 'puzzle-hint', '✦ ' + p.hintText));
     else {
       const h = el('button', 'text-button hint-button', '◇ ' + p.hintLabel);
@@ -394,13 +431,42 @@ function renderControls() {
   if (puzzle && !state.solved.includes(puzzle.id)) {
     area.push(renderPuzzle(puzzle));
     choices = node.giveUp || [];
+  } else if (node.ending) {
+    area.push(renderEndingSummary());
+    choices = [{ label: '再次踏上旅程', restart: true }];
+    if (state.beforeEnding && STORY[state.beforeEnding]) {
+      choices.unshift({ label: '回到最後的抉擇，選擇另一條路', back: state.beforeEnding });
+    }
   } else {
-    choices = node.choices || [{ label: '再次踏上旅程', restart: true }];
+    choices = node.choices || [];
   }
   area.push(...choices.map(choiceButton));
   $('choices').replaceChildren(...area);
   $('choices').scrollTop = 0;
   $('stage').classList.add('choosing');
+}
+
+// 結局達成卡：本次結局與已發現的結局，未發現的只顯示提示
+function renderEndingSummary() {
+  recordEnding(state.node);
+  const seen = seenEndings();
+  const all = Object.keys(STORY).filter(id => STORY[id].ending);
+  const box = el('div', 'ending-summary');
+  const node = STORY[state.node];
+  box.append(el('small', 'ending-label', node.chapter));
+  box.append(el('strong', 'ending-title', `「${node.title}」達成`));
+  box.append(el('p', 'ending-count', `已發現的結局 ${seen.length} / ${all.length}`));
+  const list = el('ul', 'ending-list');
+  all.forEach(id => {
+    const e = STORY[id];
+    const found = seen.includes(id);
+    const li = el('li', (found ? 'found' : 'unknown') + (id === state.node ? ' current' : ''));
+    li.append(el('span', null, found ? e.chapter.split('/')[0].trim() : '？？？'));
+    li.append(el('em', null, found ? e.title : e.hint || '尚未發現'));
+    list.append(li);
+  });
+  box.append(list);
+  return box;
 }
 
 function renderJournal() {
@@ -441,7 +507,10 @@ function render(animate) {
   $('speaker').hidden = true;
   $('choices').replaceChildren();
   $('stage').classList.remove('choosing');
-  showCard(node, () => renderLine(true));
+  showCard(node, () => {
+    renderLine(true);
+    if (pendingToast) { toast(pendingToast); pendingToast = null; }
+  });
 }
 
 // ---- 對白紀錄 ----
