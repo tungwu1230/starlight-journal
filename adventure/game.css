@@ -9,7 +9,7 @@
   --muted: #8e9aac;
   --line: #3a4558;
   --panel: rgba(13, 21, 36, .94);
-  --bg-image: url('../assets/starlight.png');
+  --bg-image: url('../assets/starlight.webp');
   --stage-w: min(100vw, max(60vh, 375px));
   --stage-h: 100vh;
   --safe-top: env(safe-area-inset-top, 0px);
@@ -213,7 +213,11 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round
 }
 .tablet.fixed { cursor: default; border-style: dashed; border-color: #8a7650; background: #1d2232; opacity: .8; }
 .tablet-no { color: var(--gold-soft); font: 11px sans-serif; letter-spacing: .2em; }
-.tablet-img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border: 1px solid #3e4659; }
+.tablet-img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid #3e4659; }
+/* 有壁畫圖時縮小留白，讓提示與放棄按鈕不必捲動就看得到 */
+.tablet:has(.tablet-img:not([hidden])) { min-height: 0; padding: 8px; gap: 4px; }
+/* 謎題出現時收起對話框（台詞與謎題說明重複），把空間留給石板 */
+.stage:has(.puzzle) .dialogue { display: none; }
 /* 有壁畫圖時，文字縮小成圖說 */
 .tablet-img:not([hidden]) + .tablet-text { font-size: 11px; line-height: 1.5; color: #aeb5c2; }
 .hint-button { margin-top: 8px; }

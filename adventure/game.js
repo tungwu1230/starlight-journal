@@ -7,7 +7,7 @@ const AUTO_DELAY = 1200; // 自動播放：每句停留的基本毫秒數
 const AUTO_PER_CHAR = 45; // 自動播放：每個字額外停留的毫秒數
 const CARD_TIME = 1700; // 章節標題卡顯示的毫秒數
 const SOLVED_PAUSE = 1200; // 謎題完成後停留的毫秒數，讓玩家看到拼好的壁畫
-const FALLBACK_BG = '../assets/starlight.png';
+const FALLBACK_BG = '../assets/starlight.webp';
 const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = id => document.getElementById(id);
 const asset = path => `assets/${path}.webp`;
@@ -261,14 +261,6 @@ function meets(req) {
   return true;
 }
 
-function requirementText(req) {
-  const parts = [];
-  if (req.items) parts.push(...req.items);
-  if (req.anyItem) parts.push(req.anyItem.join(' 或 '));
-  if (req.trust != null) parts.push(`信任 ${req.trust}`);
-  return '需要：' + parts.join('、');
-}
-
 // ---- 選項 ----
 function choiceButton(choice, index) {
   const b = el('button', 'choice');
@@ -281,7 +273,8 @@ function choiceButton(choice, index) {
     b.classList.add('locked');
     const body = el('div', 'choice-body');
     body.append(el('strong', null, '🔒 ' + choice.label));
-    body.append(el('small', null, (choice.lockHint ? choice.lockHint + '｜' : '') + requirementText(choice.requires)));
+    // 只給提示，不列出道具名稱，和手札隱藏未取得道具的做法一致
+    body.append(el('small', null, choice.lockHint || '時機似乎還沒到'));
     b.append(body);
   }
   return b;

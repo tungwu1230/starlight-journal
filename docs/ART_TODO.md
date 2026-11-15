@@ -8,7 +8,7 @@
 
 > Anime fantasy illustration, painterly digital art, highly detailed, deep navy and indigo night palette with warm golden lantern light accents, soft glowing particles, misty atmosphere, cinematic lighting, gentle melancholic and hopeful mood, vertical composition for mobile.
 
-- 參考圖：`assets/starlight.png`（新圖的畫風、色調要和它一致；**但它是橫式，而且天空有星星**，構圖不要照抄）
+- 參考圖：`assets/starlight.webp`（新圖的畫風、色調要和它一致；**但它是橫式，而且天空有星星**，構圖不要照抄）
 - **世界設定：故事中的夜空「沒有星星」**。結局以前的場景都不要畫星星或銀河；月亮可以有，但要黯淡。
 - 主角「無名旅人」：紅色斗篷、背著行囊、腰間掛提燈，臉不要畫清楚（玩家代入用）。
 - 輸出：先存成 PNG，完成後轉成 **WebP**（品質約 80）。背景與 CG 單張盡量小於 400KB，其他小於 150KB（手機網路載入）。
@@ -47,37 +47,37 @@
 - [x] `bg/ruins.webp`：**星之殿遺跡（入口）**。藏在盤根錯節的巨大樹根下的古老石門，門中央有一個羅盤形狀的凹槽（凹槽放在 30–50% 高度）。
 - [x] `bg/hall.webp`：**星之殿內部**。圓形大殿往上挑高，中央的空王座上方懸浮一頂破損的王冠，王冠中流動著無數細小的光點，兩側牆上有壁畫。
 
-## B. 角色立繪 — `adventure/assets/char/`
+## B. 角色立繪 — `adventure/assets/char/` ✅ 已完成
 尺寸 1024×1536（2:3），**透明背景**、膝上半身、面向畫面略偏一側，每個角色的光線方向一致（左上）。
 畫面上立繪高度約為螢幕的 74%，**下方約 40% 會被對話框蓋住**，所以臉和上半身要在圖片的上半部，腳底（或膝蓋裁切處）貼齊圖片底部。
 檔名格式：`char/<角色>-<表情>.webp`
 
-- [ ] **小葵**（年輕的守燈人，約 17 歲少女，深棕色短髮、樸素的工作圍裙、手持長柄點燈桿）
-  - [ ] `char/aoi-normal.webp` 平靜
-  - [ ] `char/aoi-worried.webp` 擔憂
-  - [ ] `char/aoi-smile.webp` 鬆了一口氣的微笑
-- [ ] **小葵的弟弟**（約 8 歲男孩，抱著一盞空燈籠，衣服被霧沾濕）
-  - [ ] `char/brother-scared.webp` 害怕
-  - [ ] `char/brother-smile.webp` 害羞的笑
-- [ ] **守林人**（中年男性，披著青苔斗篷，鬍鬚、溫和的眼神，手上纏著繃帶布條）
-  - [ ] `char/ranger-normal.webp` 平靜
-  - [ ] `char/ranger-serious.webp` 嚴肅（講述真相時）
-  - [ ] `char/ranger-smile.webp` 微笑
-- [ ] **白鹿**（發出淡淡白光的鹿，腿上有傷，鹿角像透明的樹枝）
-  - [ ] `char/deer-hurt.webp` 受傷臥倒（臥姿較矮，鹿身放在圖片中段，避免整隻被對話框蓋住）
-  - [ ] `char/deer-stand.webp` 站立、低頭觸碰
-- [ ] **國王**（只出現在壁畫和回憶中，年老、疲憊、戴著發光的王冠，表情帶著恐懼）
-  - [ ] `char/king-memory.webp` 半透明、像回憶的質感
+- [x] **小葵**（年輕的守燈人，約 17 歲少女，深棕色短髮、樸素的工作圍裙、手持長柄點燈桿）
+  - [x] `char/aoi-normal.webp` 平靜
+  - [x] `char/aoi-worried.webp` 擔憂
+  - [x] `char/aoi-smile.webp` 鬆了一口氣的微笑
+- [x] **小葵的弟弟**（約 8 歲男孩，抱著一盞空燈籠，衣服被霧沾濕）
+  - [x] `char/brother-scared.webp` 害怕
+  - [x] `char/brother-smile.webp` 害羞的笑
+- [x] **守林人**（中年男性，披著青苔斗篷，鬍鬚、溫和的眼神，手上纏著繃帶布條）
+  - [x] `char/ranger-normal.webp` 平靜
+  - [x] `char/ranger-serious.webp` 嚴肅（講述真相時）
+  - [x] `char/ranger-smile.webp` 微笑
+- [x] **白鹿**（發出淡淡白光的鹿，腿上有傷，鹿角像透明的樹枝）
+  - [x] `char/deer-hurt.webp` 受傷臥倒（臥姿較矮，鹿身放在圖片中段，避免整隻被對話框蓋住）
+  - [x] `char/deer-stand.webp` 站立、低頭觸碰
+- [x] **國王**（只出現在壁畫和回憶中，年老、疲憊、戴著發光的王冠，表情帶著恐懼）
+  - [x] `char/king-memory.webp` 半透明、像回憶的質感
 
-## C. 謎題：星之殿壁畫石板 — `adventure/assets/mural/`
+## C. 謎題：星之殿壁畫石板 — `adventure/assets/mural/` ✅ 已完成
 尺寸 768×1024（3:4）。**古老石刻浮雕、褪色顏料的壁畫風格**，四張要像同一面牆，邊框一致。
 手機上以 2×2 排列，每張只有約 170px 寬，**構圖要簡單、主體大、剪影清楚**，不要依賴細節辨認。
 這四張會直接顯示在排序謎題的石板上（`adventure/story.js` 的 `seal.puzzle.pieces`）。
 
-- [ ] `mural/wish.webp`：眾人在星空下各自許願，星光從每一扇窗升起
-- [ ] `mural/fear.webp`：黑暗從邊境蔓延，國王在城牆上徹夜不眠
-- [ ] `mural/crown.webp`：國王收集了所有星光，封進一頂王冠
-- [ ] `mural/dark.webp`：天空熄滅，再也沒有人抬頭
+- [x] `mural/wish.webp`：眾人在星空下各自許願，星光從每一扇窗升起
+- [x] `mural/fear.webp`：黑暗從邊境蔓延，國王在城牆上徹夜不眠
+- [x] `mural/crown.webp`：國王收集了所有星光，封進一頂王冠
+- [x] `mural/dark.webp`：天空熄滅，再也沒有人抬頭
 
 ## D. 道具圖示 — `adventure/assets/items/` ✅ 已完成
 尺寸 256×256、**透明背景**、物件置中，帶柔和光暈，風格統一（同一個角度、同樣的光線）。
@@ -98,18 +98,20 @@
 - [x] `ui/night-paper.webp`（800×1200）：手札的深藍紙頁紋理，邊緣較暗。由一張舊紙紋理轉灰階後重新上色成深藍（`#060a14` → `#27345a`）
 
 > 生成的原始 PNG 放在 `adventure/assets/_gen/`（已加入 `.gitignore`，不進版控）。
+>
+> B、C、E 的後製（2026-11-15）：立繪的 alpha 低於 24 清為透明、245 以上補成不透明（codex 的人物主體約 252，會微微透出背景）；比 2:3 寬的立繪放大到同高後裁兩側（白鹿除外）；腳底離底邊不到 8% 的貼齊底邊；弟弟縮成 80% 讓他比姊姊矮；立繪超過 150KB 時降低畫質（國王最低到 60，約 158KB）。
 
-## E. 結局 CG — `adventure/assets/cg/`
+## E. 結局 CG — `adventure/assets/cg/` ✅ 已完成
 尺寸 **1080×1920（9:16 直式）**，同樣遵守上面的安全區。**這裡可以畫星星。**
 
-- [ ] `cg/ending-return.webp`：**歸還**。王冠化為無數光點，從下方的森林與屋頂往上飛向夜空，夜空漸漸亮起，星星的形狀與從前不同、更加溫柔。
-- [ ] `cg/ending-crown.webp`：**守望**。旅人的背影獨自站在星之殿中，頭上的王冠化成溫暖的光環照亮遠方沉睡的王國，天空仍然沒有星星，畫面孤獨寧靜。
-- [ ] `cg/ending-share.webp`：**共光（真結局）**。旅人把羅盤貼在胸口，光從胸前升起，化作一座往上連接夜空的光之橋，滿天星斗，下方遠處的村民抬頭仰望。
+- [x] `cg/ending-return.webp`：**歸還**。王冠化為無數光點，從下方的森林與屋頂往上飛向夜空，夜空漸漸亮起，星星的形狀與從前不同、更加溫柔。
+- [x] `cg/ending-crown.webp`：**守望**。旅人的背影獨自站在星之殿中，頭上的王冠化成溫暖的光環照亮遠方沉睡的王國，天空仍然沒有星星，畫面孤獨寧靜。
+- [x] `cg/ending-share.webp`：**共光（真結局）**。旅人把羅盤貼在胸口，光從胸前升起，化作一座往上連接夜空的光之橋，滿天星斗，下方遠處的村民抬頭仰望。
 
 ## F. 其他
 
-- [ ] `assets/starlight.webp`：把現有的 `assets/starlight.png`（3.3MB）轉成 WebP（品質約 80，寬 1672 不變）。完成後把 `adventure/game.js` 的 `FALLBACK_BG`、`adventure/game.css` 的 `--bg-image`、根目錄 `style.css` 裡的 `starlight.png` 都改成 `starlight.webp`，再刪掉 PNG。
-- [ ] `assets/og.webp`（1200×630）：社群分享預覽圖（選做，需另外在 HTML 加 `og:image`）。
+- [x] `assets/starlight.webp`：把現有的 `assets/starlight.png`（3.3MB）轉成 WebP（品質約 80，寬 1672 不變）。完成後把 `adventure/game.js` 的 `FALLBACK_BG`、`adventure/game.css` 的 `--bg-image`、根目錄 `style.css` 裡的 `starlight.png` 都改成 `starlight.webp`，再刪掉 PNG。
+- [x] `assets/og.jpg`（1200×630）：社群分享預覽圖，由 `starlight.png` 裁切。用 JPEG 而不是 WebP，因為部分社群平台的預覽不支援 WebP。兩個頁面都已加上 `og:image`。
 
 ---
 
@@ -117,5 +119,5 @@
 1. 依照上面的路徑和檔名存檔，程式會照這些路徑讀取。
 2. 同一個角色的所有表情要用同一個角色設定（seed／參考圖）生成，確保長相一致。
 3. 立繪和道具圖要去背，存成帶透明通道的 WebP。
-4. 生成完成後不需要修改程式（F 的第一項除外）：遊戲會自動讀取上面的路徑，圖片存在就顯示，不存在就退回預設畫面（`assets/starlight.png`、純文字名牌）。
+4. 生成完成後不需要修改程式（F 的第一項除外）：遊戲會自動讀取上面的路徑，圖片存在就顯示，不存在就退回預設畫面（`assets/starlight.webp`、純文字名牌）。
 5. 放好圖之後，用手機尺寸（例如瀏覽器開發者工具的 iPhone 模擬）開啟 `adventure/index.html` 確認：重點元素沒有被上方資訊列或對話框蓋住、立繪的臉露在對話框上方。

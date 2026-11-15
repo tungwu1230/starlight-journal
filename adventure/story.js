@@ -1,12 +1,13 @@
 // 故事內容集中在這裡，方便修改。
 //
 // 段落欄位
-//   bg        背景圖，對應 adventure/assets/<bg>.webp；圖片不存在時使用根目錄的 assets/starlight.png
+//   bg        背景圖，對應 adventure/assets/<bg>.webp；圖片不存在時使用根目錄的 assets/starlight.webp
 //   lines     逐句演出的台詞。字串是旁白；物件 { who, face, text } 是角色對白
 //             who 為說話者名稱（需在 CHARACTERS 中才會顯示立繪），face 為表情
 //             sprite 可指定立繪（例如 'deer-hurt'），sprite:null 收起立繪
 //   choices   選項：next 下一段、item 取得道具、trust 增加信任
-//             requires: { items:[全部需要], anyItem:[任一即可], trust:最低信任 }，lockHint 為未解鎖時的提示
+//             requires: { items:[全部需要], anyItem:[任一即可], trust:最低信任 }
+//             lockHint 為未解鎖時顯示的提示（不會列出所需道具，提示要讓玩家猜得到方向）
 //   puzzle    謎題。lines 播完後出現；解開前顯示 giveUp 選項，解開後播放 solvedLines 再顯示 choices
 //   ending    結局段落；hint 為尚未發現時在結局卡上顯示的提示
 
@@ -82,6 +83,7 @@ const STORY = {
       { who: '弟弟', face: 'scared', text: '你、你是誰？……我想替姊姊找回星光，可是霧好濃，我找不到回去的路。' },
       '你牽起他的手，循著羅盤的微光走回村裡。',
       { who: '小葵', face: 'smile', text: '太好了……謝謝你。' },
+      { who: '弟弟', face: 'smile', text: '……謝謝你，旅人。下次換我替你點燈。' },
       { who: '小葵', face: 'normal', text: '這是我們最後的火種。請讓它陪你走一段路。' },
       '她將一盞微微發亮的提燈交到你手中。'
     ],
@@ -174,7 +176,7 @@ const STORY = {
     choices: [
       { label: '打破王冠，將星光歸還眾人', next: 'ending_return' },
       { label: '保留王冠，守護王國的光', next: 'ending_crown' },
-      { label: '分享自己的光，點亮共同的天空', next: 'ending_share', requires: { items: ['光葉結晶', '封印的秘密'], trust: 2 }, lockHint: '你還不夠了解這片土地與封印的真相' }
+      { label: '分享自己的光，點亮共同的天空', next: 'ending_share', requires: { items: ['光葉結晶', '封印的秘密'], trust: 2 }, lockHint: '你還沒贏得這片土地的信任，也還沒讀懂封印的真相' }
     ]
   },
 
